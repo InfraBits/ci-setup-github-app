@@ -23,15 +23,19 @@ runs:
     - name: Generate JWT and get installation access token
       id: gh_app_installation
       uses: actions/github-script@v7
+      env:
+        APP_KEY: ${{ inputs.app_key }}
+        APP_ID: ${{ inputs.app_id }}
+        REPO: ${{ inputs.repo }}
       with:
         script: |
           const crypto = require('crypto');
 
-          core.setSecret('${{ inputs.app_key }}');
+          const appKey = Buffer.from(process.env.APP_KEY.trim(), 'base64').toString('utf8');
+          const appId = process.env.APP_ID.trim();
+          const repo = process.env.REPO.trim();
 
-          const appId = '${{ inputs.app_id }}';
-          const appKey = Buffer.from('${{ inputs.app_key }}', 'base64').toString('utf8');
-          const repo = '${{ inputs.repo }}';
+          core.setSecret(process.env.APP_KEY);
 
           // Build JWT (RS256)
           const b64url = (data) =>
