@@ -1,0 +1,39 @@
+name: Setup GitHub app access
+
+on:
+  workflow_call:
+    inputs:
+      app_id:
+        description: GitHub application id
+        type: number
+        required: true
+      app_key:
+        description: GitHub application secret key
+        type: string
+        required: true
+      repo:
+        description: GitHub repo path (org/repo)
+        type: string
+        required: true
+
+    outputs:
+      access_token:
+        description: GitHub access token
+        value: ${{ jobs.setup-access.outputs.access_token }}
+
+jobs:
+  setup-access:
+    runs-on: ubuntu-latest
+    outputs:
+      access_token: ${{ steps.setup-github-app.outputs.access_token }}
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: setup GitHub app
+        uses: infrabits/ci-setup-github-app@main
+        id: setup-github-app
+        with:
+          app_id: ${{ inputs.app_id }}
+          app_key: ${{ inputs.app_key }}
+          repo: ${{ inputs.repo }}
