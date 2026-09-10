@@ -28,10 +28,10 @@ jobs:
       access_token: ${{ steps.setup-github-app.outputs.access_token }}
     steps:
       - name: checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: setup GitHub app
-        uses: infrabits/ci-setup-github-app@main
+        uses: infrabits/ci-setup-github-app@7fbbffbb86862da745b24d427a8b8b702760c28b # main
         id: setup-github-app
         with:
           app_id: ${{ inputs.app_id }}
