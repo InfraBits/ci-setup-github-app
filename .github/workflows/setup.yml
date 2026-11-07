@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: setup GitHub app
-        uses: infrabits/ci-setup-github-app@4d5eb08826b50a8654d4e838f377ffb4275f9785 # v1.5.0
+        uses: infrabits/ci-setup-github-app@0cf979ed937c12db214acce8b27862c5e2ba1766 # v1.7.0
         id: setup-github-app
         with:
           app_id: ${{ inputs.app_id }}
